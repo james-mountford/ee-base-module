@@ -1,9 +1,14 @@
 # EE Base Module
 
-A simple base module for EE, on which a full module cna be built.
+A simple base module for EE, on which a full module can be built.
 
-The name `module_base` is used throughout, so you can use your favorite
-method to find and replace the existing module name with your own. Just
-remember to do a case sensitive replacement, as in some instances EE
-requires that the first letter of the module name be capitalised 
-(mostly for class names).
+You will want to replace the existing module name in the files,
+as well as renaming the files themselves, before developing your
+own module.
+
+[mmv](http://linux.die.net/man/1/mmv) is useful for changing the
+filenames easily, using something like:
+
+```bash
+mmv ";*module_base*.php" "#1#2my_module#3.php"
+```
