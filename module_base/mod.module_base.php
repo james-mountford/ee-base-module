@@ -53,6 +53,7 @@ class Module_base
 	{
 		return __CLASS__;
 	}
+}
 
 /* End of file mod.module_base.php */
 /* Location: /mod.module_base.php */
