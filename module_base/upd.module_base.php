@@ -65,11 +65,11 @@ class Module_base_upd
 	 **/
 	public function install()
 	{
-		$this->EE->load->library('logger');
+		$class = $this->_get_module_class();
 
 		// Add to modules table.
 		$data = array(
-			'module_name'        => $this->_get_module_class(),
+			'module_name'        => $class,
 			'module_version'     => $this->version,
 			'has_cp_backend'     => 'y',
 			'has_publish_fields' => 'y',
@@ -84,7 +84,7 @@ class Module_base_upd
 		//   the action ID.
 		$data = array(
 			// array(
-			// 	'class'  => $this->_get_module_class(),
+			// 	'class'  => $class,
 			// 	'method' => 'add_area',
 			// ),
 		);
@@ -96,7 +96,7 @@ class Module_base_upd
 		//
 		// See the tabs() method for details.
 		$this->EE->load->library('layout');
-		$this->EE->layout->add_layout_tabs($this->tabs(), $this->_get_module_class());
+		$this->EE->layout->add_layout_tabs($this->tabs(), $class);
 
 		// Run custom SQL, generally to add your own tables.
 		//
@@ -164,15 +164,15 @@ class Module_base_upd
 	 **/
 	public function uninstall()
 	{
-		$this->EE->load->library('logger');
+		$class = $this->_get_module_class();
 
 		// Remove tabs.
 		$this->EE->load->library('layout');
-		$this->EE->layout->delete_layout_tabs($this->tabs(), $this->_get_module_class());
+		$this->EE->layout->delete_layout_tabs($this->tabs(), $class);
 
 		// Remove actions from EE.
 		$table_name = $this->EE->db->dbprefix('actions');
-		$sql = "DELETE FROM {$table_name} WHERE class = '{$this->_get_module_class()}';";
+		$sql = "DELETE FROM {$table_name} WHERE class = '{$class}';";
 		$this->EE->db->query($sql);
 
 		// Remove custom tables.
@@ -190,7 +190,7 @@ class Module_base_upd
 
 		// Remove module from EE.
 		$table_name = $this->EE->db->dbprefix('modules');
-		$sql = "DELETE FROM {$table_name} WHERE module_name = '{$this->_get_module_class()}';";
+		$sql = "DELETE FROM {$table_name} WHERE module_name = '{$class}';";
 		$this->EE->db->query($sql);
 
 		return true;
